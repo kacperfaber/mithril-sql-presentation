@@ -1,7 +1,7 @@
 import {storage} from "../storage";
 import {api} from "./Api";
 import {apiState} from "../state/apiState";
-import {redraw} from "mithril/redraw"
+import {redraw} from "mithril"
 
 export class ApiSettings {
     private static validationSuccess(success: () => void) {
