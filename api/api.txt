@@ -1,0 +1,40 @@
+1. Config...
+
+api-settings.json, the same directory as .php file.
+
+{
+    "username": "string",
+    "password": "string",
+    "port": "number",
+    "host": "string",
+    "temp_db_name": "string"
+}
+
+2. Sending requests...
+
+REQUEST:
+
+METHOD: GET
+
+JSON BODY:
++ schema: string
++ query: string
+
+e.g.
+
+{
+    "schema": "CREATE TABLE user(ID INT PRIMARY KEY, name TEXT); INSERT INTO user (ID) VALUES (5);",
+    "query": "SELECT COUNT(id) FROM user WHERE ID = 5; SELECT * FROM user;"
+}
+
+RESPONSE:
+Array<Result>
+
+Result {
+    headers: Array<string>
+    rows: Array<KeyValue>
+}
+
+e.g.
+
+[{"rows":[{"COUNT(id)":"1"}],"headers":["COUNT(id)"]},{"rows":[{"ID":"5","name":null}],"headers":["ID","name"]}]
