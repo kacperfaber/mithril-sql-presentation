@@ -1,3 +1,5 @@
+import {layout} from "../layout";
+
 export const Welcome = function () {
-    return {view: () => (<h1>Hello World!</h1>)}
+    return {view: () => layout.free(<h1>Hello World!</h1>)}
 }

@@ -7,3 +7,5 @@ export class Layout {
         return m("div#view", m(Navbar), node);
     }
 }
+
+export const layout = new Layout();
