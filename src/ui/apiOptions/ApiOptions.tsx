@@ -6,6 +6,7 @@ import m from "mithril/hyperscript";
 import {apiSettings} from "../../api/ApiSettings";
 import {redraw} from "mithril"
 import {ApiOptions_ApiState} from "./ApiOptions_ApiState";
+import {navigation} from "../../navigation";
 
 export const ApiOptions = function () {
     return {
@@ -22,12 +23,22 @@ export const ApiOptions = function () {
                             {saveButton()}
 
                             <ApiOptions_ApiState/>
+
+                            {downloadApi()}
                         </div>
                     </div>
                 </div>
             </div>
         ))
     }
+}
+
+function downloadApi() {
+    function downloadClicked() {
+        navigation.apiDownload()
+    }
+
+    return m("button.btn.btn-secondary", {onclick: downloadClicked}, "Pobierz API");
 }
 
 function queryUrlInput(): Vnode {
