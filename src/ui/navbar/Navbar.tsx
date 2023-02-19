@@ -2,8 +2,8 @@ export const Navbar = function () {
     return {
         view: () => (
 
-            <nav className="navbar fixed-top">
-
+            <nav id="navbar" className="navbar fixed-top">
+                <button className="btn btn-primary">Hello</button>
             </nav>
 
         )
