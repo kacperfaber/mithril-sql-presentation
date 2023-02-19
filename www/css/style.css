@@ -11,3 +11,13 @@ body {
     background-color: #222;
     max-height: 75px;
 }
+
+.chapter-section-header {
+    padding-bottom: 25px;
+    padding-top: 25px;
+}
+
+.chapter-section {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
