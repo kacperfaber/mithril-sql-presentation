@@ -1,0 +1,12 @@
+body {
+    background-color: #333;
+}
+
+#view {
+    margin-top: 80px;
+}
+
+#navbar {
+    background-color: #222;
+    max-height: 75px;
+}
