@@ -77,10 +77,20 @@
 		return $headers;
 	}
 
+	function make_single_value_row($row) {
+		$value_row = array();
+		$keys = array_keys($row);
+		foreach ($keys as $key) {
+			array_push($value_row, $row[$key]);
+		}
+		return $value_row;
+	}
+
 	function get_rows_array($r) {
 		$rows=array();
 		while ($row = $r->fetch_assoc()) {
-			array_push($rows, $row);
+			$vrow = make_single_value_row($row);
+			array_push($rows, $vrow);
 		}
 		return $rows;
 	}
@@ -91,16 +101,15 @@
 
 	function use_multi_result($mr) {
 		do {
-			echo $mr;
 			$result = $mr->store_result();
-
 			$result_object = make_result_object($result);
 			array_push($results);
 		} while ($mr->next_result());
 	}
 
 	function delete_temp_database($db) {
-		$r = $db -> query("DROP DATABASE test_x_;");
+		global $settings;
+		$r = $db -> query("DROP DATABASE ".get_temp_db_name($settings).";");
 	}
 
 	function execute_query($dbx, $query) {
@@ -109,7 +118,6 @@
 				if ($result = $dbx -> store_result()) {
 					global $res_;
 					array_push($res_, make_result_object($result));
-					$result -> free_result();
 				}
 			} while ($dbx -> next_result());
 		}

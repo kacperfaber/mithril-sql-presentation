@@ -33,9 +33,9 @@ Array<Result>
 
 Result {
     headers: Array<string>
-    rows: Array<KeyValue>
+    rows: Array<String("value")>
 }
 
 e.g.
 
-[{"rows":[{"COUNT(id)":"1"}],"headers":["COUNT(id)"]},{"rows":[{"ID":"5","name":null}],"headers":["ID","name"]}]
+[{"rows":["1"],"headers":["COUNT(id)"]},{"rows":["5",null],"headers":["ID","name"]}]
