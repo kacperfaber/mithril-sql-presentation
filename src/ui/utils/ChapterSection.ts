@@ -26,5 +26,5 @@ function getChapterHeader(header: string | null | Vnode): Vnode {
 }
 
 export function chapter(vnode: Vnode, header: string | null | Vnode): Vnode {
-    return m("div.row", m("div.col-10.offset-1", m("div", getChapterHeader(header), vnode)));
+    return m("div.row", m("div.col-10.offset-1", m("div.chapter", getChapterHeader(header), vnode)));
 }
