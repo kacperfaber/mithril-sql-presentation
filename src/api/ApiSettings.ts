@@ -18,7 +18,7 @@ export class ApiSettings {
         redraw();
     }
 
-    private static startValidation(success: () => void, failed: () => void){
+    public static startValidation(success: () => void, failed: () => void){
         apiState.isValidating = true;
         apiState.validation = "no_validation";
         redraw();
