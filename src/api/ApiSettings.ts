@@ -6,7 +6,7 @@ import {redraw} from "mithril"
 export class ApiSettings {
     private static validationSuccess(success: () => void) {
         apiState.validation = "success";
-        apiState.isValidating = true;
+        apiState.isValidating = false;
         success();
         redraw();
     }
