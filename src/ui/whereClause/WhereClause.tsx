@@ -17,13 +17,14 @@ const presets: Array<SchemaButtonPreset> = [
     }
 ];
 const whereClause_SqlConsoleState: SqlConsoleState = {
-    withResetButton: true,
+    withResetButton: false,
     id: "where",
     query: "SELECT * FROM user WHERE age > 18;",
     schema: "CREATE TABLE user(ID INT PRIMARY KEY, NAME TEXT, AGE INT); INSERT INTO user(ID, NAME, TEXT) VALUES(0, 'Kacper', 20); INSERT INTO user(ID, NAME, TEXT) VALUES(0, 'Mateusz', 15);",
     result: null,
     isWorking: false,
-    schemaButtons: m("div")
+    schemaButtons: m("div"),
+    isActive: false
 }
 
 whereClause_SqlConsoleState.schemaButtons = schemaButtonsFrom(whereClause_SqlConsoleState, presets);

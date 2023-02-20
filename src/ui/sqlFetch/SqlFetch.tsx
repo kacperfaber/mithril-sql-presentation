@@ -24,7 +24,8 @@ const sqlFetch_SqlConsoleState: SqlConsoleState = {
     schema: "CREATE TABLE USER(ID INT PRIMARY KEY, NAME TEXT); INSERT INTO USER(ID, NAME) VALUES(1, 'Kacper');",
     result: null,
     isWorking: false,
-    schemaButtons: m("div")
+    schemaButtons: m("div"),
+    isActive: false
 }
 
 sqlFetch_SqlConsoleState.schemaButtons = schemaButtons();

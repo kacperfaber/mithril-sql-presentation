@@ -17,10 +17,32 @@ body {
     padding-top: 25px;
 }
 
+.chapter {
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+.animate-in {animation:fade-in 0.5s;}
+@keyframes fade-in {
+    from {opacity:0;}
+    to {opacity:1;}
+}
+
 .chapter-section {
     padding-top: 40px;
     padding-bottom: 40px;
 }
 .schema-preset {
     margin-right: 5px;
+}
+
+#presentation-end {
+    width: 100vh;
+    height: 100vh;
+    text-align: center;
+}
+
+.sql-console {
+    margin-top: 20px;
+    margin-bottom: 20px;
 }

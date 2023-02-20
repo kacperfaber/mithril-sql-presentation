@@ -132,8 +132,10 @@ function renderQueryTextArea(state: SqlConsoleState) {
 
 function renderConsole(state: SqlConsoleState) {
     return (
-        <div className="container">
+        <div className="animate-in container sql-console">
             <div className="row">
+                <h2>Konsola SQL</h2>
+
                 <div className="col-6">
                     {renderSchemaTextArea(state)}
                 </div>
@@ -150,8 +152,19 @@ function renderConsole(state: SqlConsoleState) {
     )
 }
 
+function renderActiveButton(state: SqlConsoleState): Vnode {
+    function activeButtonClicked() {
+        state.isActive = true;
+        redraw();
+    }
+    return m("button.btn.btn-success", {onclick: activeButtonClicked}, "Pokaż konsole");
+}
+
 function renderSqlConsole(state: SqlConsoleState): Vnode {
     if (apiState.queryUrl != null && apiState.validation != "failed") {
+        if (!state.isActive) {
+            return renderActiveButton(state);
+        }
         return renderConsole(state);
     }
     return renderApiDisabled();

@@ -10,4 +10,5 @@ export class SqlConsoleState {
     isWorking: boolean = false;
     withResetButton: boolean = false;
     schemaButtons: Vnode = m("div");
+    isActive: boolean = false;
 }
