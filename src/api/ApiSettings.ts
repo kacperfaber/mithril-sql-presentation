@@ -26,6 +26,12 @@ export class ApiSettings {
         api.testApi(() => ApiSettings.validationSuccess(success), () => ApiSettings.validationFailed(failed));
     }
 
+    public static runLiveValidations(seconds: number, success: () => void, failed: () => void) {
+        setInterval(() => {
+            ApiSettings.startValidation(success, failed);
+        }, seconds * 1000);
+    }
+
     private static updateQueryUrlInState(url: string) {
         apiState.queryUrl = url;
         apiState.validation = "no_validation";
