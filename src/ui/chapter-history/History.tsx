@@ -1,27 +1,14 @@
 import {Vnode} from "mithril";
-import {chapterSection} from "../utils/ChapterSection";
-import {layout} from "../layout";
+import {chapter, chapterSection} from "../utils/ChapterSection";
 
- /* TODO przyszlosc jezyka */
+/* TODO przyszlosc jezyka */
 
 export const History = function () {
     return {
-        view: () => layout.free(
-            <div className="container">
-                <div className="row">
-                    <div className="col-10 offset-1">
-                        <h1 className="chapter-header">Historia języka SQL</h1>
-
-                        {section_sequel()}
-
-                        {section_dialekty()}
-
-
-
-                    </div>
-                </div>
-            </div>
-        )
+        view: () => chapter((<>
+            {section_sequel()}
+            {section_dialekty()}
+        </>), "Historia języka SQL")
     }
 }
 

@@ -1,26 +1,19 @@
-import {layout} from "../layout";
 import {Vnode} from "mithril";
-import {chapterSection} from "../utils/ChapterSection";
+import {chapter, chapterSection} from "../utils/ChapterSection";
 
 export const SqlBasics = function () {
     return {
-        view: () => layout.free(
-            <div className="container-fluid">
-                <div className="row">
-                    <div className="col-10 offset-1">
-                        <h1 className="chapter-header">Podstawy języka SQL</h1>
+        view: () => chapter((<>
+            <div className="col-10 offset-1">
+                {section_coToJestDoCzegoSluzy()}
 
-                        {section_coToJestDoCzegoSluzy()}
-
-                        {section_kategorieSql()}
-                    </div>
-                </div>
+                {section_kategorieSql()}
             </div>
-        )
+        </>), "Podstawy języka SQL")
     }
 }
 
-function section_kategorieSql(): Vnode {
+export function section_kategorieSql(): Vnode {
     const element = (<>
             <h5>DDL - Data Defintion Language</h5>
             <p>Komendy powiązane z tworzeniem struktury bazy danych</p>
@@ -36,7 +29,7 @@ function section_kategorieSql(): Vnode {
     return chapterSection(element, "Język SQL, a raczej polecenia w nim zostały pogrupowane na: ", "section-kategorie-sql");
 }
 
-function section_coToJestDoCzegoSluzy(): Vnode {
+export function section_coToJestDoCzegoSluzy(): Vnode {
     const element = (<>
         <p>SQL - ang. Structured Query Language czyli strukturalny język zapytań to język służący do
             porozumiewania się z bazą danych
