@@ -1,7 +1,8 @@
 import {request} from "mithril/request"
 import {apiState} from "../state/apiState";
 
-type QueryResponse = { headers: Array<string>, rows: Array<Array<String>> }
+export type QueryResponse = Array<Result>;
+export type Result = { headers: Array<string>, rows: Array<Array<String>> };
 
 export class Api {
     query(schema: string, query: string, success: (r: QueryResponse) => void, failed: () => void) {
@@ -10,8 +11,9 @@ export class Api {
             return;
         }
 
-        request({method: "GET", url: apiState.queryUrl})
-            .then((r) => success(r as QueryResponse))
+        request({headers: {"Content-Type": "application/json"}, body: {query: query, schema: schema}, method: "POST", url: apiState.queryUrl})
+            .then((r) => {
+                success(r as QueryResponse);})
             .catch(failed);
     }
 
