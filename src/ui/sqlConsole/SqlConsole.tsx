@@ -38,7 +38,11 @@ function renderExecuteButton(state: SqlConsoleState): Vnode {
 
     function executeQueryButtonClicked() {
         state.isWorking = true;
-        api.query(readSchema(state), readQuery(state), executeSuccess, () => alert("err"));
+        let schema = readSchema(state);
+        let query = readQuery(state);
+        state.query = query;
+        state.schema = schema;
+        api.query(schema, query, executeSuccess, () => alert("err"));
         redraw();
     }
 
@@ -67,7 +71,7 @@ function renderTable(result: Result): Vnode {
     }
 
     function renderRows() {
-        return result.rows.map(r=>renderRow(r));
+        return result.rows.map(r => renderRow(r));
     }
 
     function renderTbody() {
@@ -92,7 +96,7 @@ function renderResetButton(state: SqlConsoleState) {
 }
 
 function renderResult(state: SqlConsoleState): Vnode {
-    if (state.result == null ){
+    if (state.result == null) {
         return (<h3>Brak rezultatów</h3>)
     }
     return m("div.container", m("div.row", state.result.map(x => m("div.col", renderTable(x)))));
@@ -100,18 +104,30 @@ function renderResult(state: SqlConsoleState): Vnode {
 
 function renderSchemaTextArea(state: SqlConsoleState) {
     let schemaTextAreaId = getSchemaTextAreaId(state);
-    return (<div className="form-group">
-        <label htmlFor={schemaTextAreaId}>Schemat: </label>
-        <textarea className="form-control" id={schemaTextAreaId} rows="3"/>
-    </div>)
+    return (<>
+        <div className="form-group">
+            <label htmlFor={schemaTextAreaId}>Schemat: </label>
+            {textAreaFor(schemaTextAreaId, "3", state.schema)}
+        </div>
+        <br></br>{state.schemaButtons}</>)
+}
+
+function textAreaFor(id: string, rows: string, value: string | null): Vnode {
+    if (value == null) {
+        return (<textarea className="form-control" id={id} rows={rows}/>);
+    }
+
+    return (<textarea className="form-control" id={id} rows={rows} value={value}/>);
 }
 
 function renderQueryTextArea(state: SqlConsoleState) {
     let queryTextAreaId = getQueryTextAreaId(state);
-    return (<div><div className="form-group">
-        <label htmlFor={queryTextAreaId}>Zapytanie: </label>
-        <textarea className="form-control" id={queryTextAreaId} rows="3"/>
-    </div><br></br>{renderExecuteButton(state)}{renderResetButton(state)}</div>)
+    return (<div>
+        <div className="form-group">
+            <label htmlFor={queryTextAreaId}>Zapytanie: </label>
+            {textAreaFor(queryTextAreaId, "3", state.query)}
+        </div>
+        <br></br>{renderExecuteButton(state)}{renderResetButton(state)}</div>)
 }
 
 function renderConsole(state: SqlConsoleState) {
@@ -135,12 +151,12 @@ function renderConsole(state: SqlConsoleState) {
 }
 
 function renderSqlConsole(state: SqlConsoleState): Vnode {
-    if (apiState.queryUrl != null && apiState.validation == "success") {
+    if (apiState.queryUrl != null && apiState.validation != "failed") {
         return renderConsole(state);
     }
     return renderApiDisabled();
 }
 
 function renderApiDisabled(): Vnode {
-    return (<h1>Do użycia konsoli wymagane jest połączenie z API.</h1>);
+    return (<h4 className="text-red">Do użycia konsoli wymagane jest połączenie z API.</h4>);
 }
