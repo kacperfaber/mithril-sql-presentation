@@ -15,7 +15,7 @@ api-settings.json, the same directory as .php file.
 
 REQUEST:
 
-METHOD: GET
+METHOD: POST
 
 JSON BODY:
 + schema: string
@@ -28,7 +28,7 @@ e.g.
     "query": "SELECT COUNT(id) FROM user WHERE ID = 5; SELECT * FROM user;"
 }
 
-RESPONSE:
+RESPONSE IF OK:
 Array<Result>
 
 Result {
@@ -39,3 +39,10 @@ Result {
 e.g.
 
 [{"rows":["1"],"headers":["COUNT(id)"]},{"rows":["5",null],"headers":["ID","name"]}]
+
+RESPONSE IF ERROR:
+SC 400
+
+{ "err": "string" }
+
+
