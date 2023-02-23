@@ -6,8 +6,8 @@ import {SqlConsole} from "../sqlConsole/SqlConsole";
 
 const presets: Array<SchemaButtonPreset> = [
     {
-        query: "SELECT * FROM kot WHERE ID > 2;",
-        schema: "CREATE TABLE kot(ID INT PRIMARY KEY, COL TEXT); INSERT INTO kot(ID, COL) VALUES(1, 'RUDY'); INSERT INTO kot(ID, NAME) VALUES(2, 'RUDY'); INSERT INTO kot(ID, NAME) VALUES(2, 'BLOND')",
+        query: "SELECT COUNT(ID) FROM kot GROUP BY COL;",
+        schema: "CREATE TABLE kot(ID INT PRIMARY KEY, COL TEXT); INSERT INTO kot(ID, COL) VALUES(1, 'RUDY'); INSERT INTO kot(ID, COL) VALUES(2, 'RUDY'); INSERT INTO kot(ID, COL) VALUES(4, 'BLOND'); INSERT INTO kot(ID, COL) VALUES(3, 'BLOND')",
         text: "Koty/Kolor"
     }
 ];
@@ -15,8 +15,8 @@ const presets: Array<SchemaButtonPreset> = [
 const groupBy_SqlConsoleState: SqlConsoleState = {
     withResetButton: false,
     id: "groupby",
-    query: "SELECT * FROM user;",
-    schema: "CREATE TABLE USER(ID INT PRIMARY KEY, NAME TEXT); INSERT INTO USER(ID, NAME) VALUES(1, 'Kacper');",
+    query: "",
+    schema: "",
     result: null,
     isWorking: false,
     schemaButtons: m("div"),

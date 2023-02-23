@@ -11,8 +11,8 @@ const presets: Array<SchemaButtonPreset> = [
         text: "Lista userów"
     },
     {
-        query: "SELECT * FROM kot WHERE ID > 2;",
-        schema: "CREATE TABLE kot(ID INT PRIMARY KEY, NAME TEXT); INSERT INTO kot(ID, NAME) VALUES(1, 'Puszek'); INSERT INTO kot(ID, NAME) VALUES(2, 'Mruczek'); INSERT INTO kot(ID, NAME) VALUES(2, 'Kot we butach')",
+        query: "SELECT * FROM kot WHERE TRUE;",
+        schema: "CREATE TABLE kot(ID INT PRIMARY KEY, NAME TEXT); INSERT INTO kot(ID, NAME) VALUES(1, 'Puszek'); INSERT INTO kot(ID, NAME) VALUES(2, 'Mruczek'); INSERT INTO kot(ID, NAME) VALUES(3, 'Kot we butach'); INSERT INTO kot(ID, NAME) VALUES(4, 'Sofia'); INSERT INTO kot(ID, NAME) VALUES(5, 'Klara');",
         text: "Koty"
     }
 ];
