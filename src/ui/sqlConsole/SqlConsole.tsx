@@ -2,7 +2,7 @@ import {request, Vnode} from "mithril";
 import {SqlConsoleState} from "../../state/SqlConsoleState";
 import {apiState} from "../../state/apiState";
 import m from "mithril/hyperscript";
-import {api, QueryResponse, Result} from "../../api/Api";
+import {api, ErrorResponse, QueryResponse, Result} from "../../api/Api";
 import {redraw} from "mithril";
 
 export const SqlConsole = function (v: Vnode) {
@@ -29,10 +29,26 @@ function readSchema(state: SqlConsoleState): string {
     return (document.getElementById(getSchemaTextAreaId(state)) as HTMLInputElement).value;
 }
 
+function renderError(state: SqlConsoleState): Vnode {
+    const err = state.error;
+    if (err != null) {
+        return <p className="text-red">{err.err ?? "Nieznany błąd"}</p>
+    }
+    return <></>
+}
+
 function renderExecuteButton(state: SqlConsoleState): Vnode {
     function executeSuccess(qr: QueryResponse) {
         state.isWorking = false;
         state.result = qr;
+        state.error = null;
+        redraw();
+    }
+
+    function executeFailed(error: ErrorResponse | null) {
+        state.isWorking = false;
+        state.result = null;
+        state.error = error;
         redraw();
     }
 
@@ -42,7 +58,7 @@ function renderExecuteButton(state: SqlConsoleState): Vnode {
         let query = readQuery(state);
         state.query = query;
         state.schema = schema;
-        api.query(schema, query, executeSuccess, () => alert("err"));
+        api.query(schema, query, executeSuccess, executeFailed);
         redraw();
     }
 
@@ -147,6 +163,8 @@ function renderConsole(state: SqlConsoleState) {
 
             <div className="row">
                 {renderResult(state)}
+                <br/>
+                {renderError(state)}
             </div>
         </div>
     )
@@ -157,6 +175,7 @@ function renderActiveButton(state: SqlConsoleState): Vnode {
         state.isActive = true;
         redraw();
     }
+
     return m("button.btn.btn-success", {onclick: activeButtonClicked}, "Pokaż konsole");
 }
 

@@ -1,5 +1,5 @@
 import {storage} from "../storage";
-import {api} from "./Api";
+import {api, ErrorResponse} from "./Api";
 import {apiState} from "../state/apiState";
 import {redraw} from "mithril"
 
@@ -11,19 +11,19 @@ export class ApiSettings {
         redraw();
     }
 
-    private static validationFailed(failed: () => void) {
+    private static validationFailed(error: ErrorResponse | null, failed: (error: ErrorResponse | null) => void) {
         apiState.validation = "failed";
         apiState.isValidating = false;
-        failed();
+        failed(error);
         redraw();
     }
 
-    public static startValidation(success: () => void, failed: () => void){
+    public static startValidation(success: () => void, failed: (e: ErrorResponse | null) => void) {
         apiState.isValidating = true;
         apiState.validation = "no_validation";
         redraw();
 
-        api.testApi(() => ApiSettings.validationSuccess(success), () => ApiSettings.validationFailed(failed));
+        api.testApi(() => ApiSettings.validationSuccess(success), (e: ErrorResponse | null) => ApiSettings.validationFailed(e, failed));
     }
 
     public static runLiveValidations(seconds: number, success: () => void, failed: () => void) {
