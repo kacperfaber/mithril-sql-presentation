@@ -3,6 +3,6 @@ import {Routes} from "./routes";
 import {ApiSettings} from "./api/ApiSettings";
 
 ApiSettings.startValidation(() => {}, () => {});
-ApiSettings.runLiveValidations(10, () => {}, () => {});
+// ApiSettings.runLiveValidations(10, () => {}, () => {});
 
 route(document.body, "/welcome", Routes)
