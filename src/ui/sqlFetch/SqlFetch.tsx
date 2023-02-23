@@ -18,7 +18,7 @@ const presets: Array<SchemaButtonPreset> = [
 ];
 
 const sqlFetch_SqlConsoleState: SqlConsoleState = {
-    withResetButton: true,
+    withResetButton: false,
     id: "sql-fetch",
     query: "SELECT * FROM user;",
     schema: "CREATE TABLE USER(ID INT PRIMARY KEY, NAME TEXT); INSERT INTO USER(ID, NAME) VALUES(1, 'Kacper');",

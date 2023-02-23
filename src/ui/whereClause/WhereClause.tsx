@@ -7,7 +7,7 @@ import {SqlConsole} from "../sqlConsole/SqlConsole";
 const presets: Array<SchemaButtonPreset> = [
     {
         query: "SELECT * FROM u WHERE age > 18;",
-        schema: "CREATE TABLE u(ID INT PRIMARY KEY, NAME TEXT, AGE INT); INSERT INTO u(ID, NAME, AGE) VALUES(0, 'Kacper', 20); INSERT INTO u(ID, NAME, AGE) VALUES(0, 'Mateusz', 15); INSERT INTO u(ID, NAME, AGE) VALUES(3, 'Oskar', 13); INSERT INTO u(ID, NAME, AGE) VALUES(2, 'Karolina', 17);",
+        schema: "CREATE TABLE u(ID INT PRIMARY KEY, NAME TEXT, AGE INT); INSERT INTO u(ID, NAME, AGE) VALUES(0, 'Kacper', 20); INSERT INTO u(ID, NAME, AGE) VALUES(10, 'Mateusz', 15); INSERT INTO u(ID, NAME, AGE) VALUES(3, 'Oskar', 13); INSERT INTO u(ID, NAME, AGE) VALUES(2, 'Karolina', 17);",
         text: "Pełnoletni użytkownicy"
     },
     {

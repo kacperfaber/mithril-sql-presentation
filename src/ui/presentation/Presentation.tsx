@@ -6,12 +6,14 @@ import {SqlFetch} from "../sqlFetch/SqlFetch";
 import {WhereClause} from "../whereClause/WhereClause";
 import {GroupBy} from "../groupBy/GroupBy";
 import {Presentation_Ending} from "./Presentation_Ending";
+import {Presentation_Heading} from "./Presentation_Heading";
 
 export const Presentation = function () {
     return {
         view: () => layout.free(
             <>
-                <div className="container" style="background-color: #222;">
+                <Presentation_Heading/>
+                <div id="presentation-container" className="container animate-in" style="background-color: #222;">
                     <SqlBasics/>
                     <History/>
                     <SqlUsage/>
