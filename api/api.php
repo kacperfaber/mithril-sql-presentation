@@ -1,16 +1,12 @@
 <?php
-	header("content-type: application/json");
-	mysqli_report(MYSQLI_REPORT_OFF);
-
-	function return_err($error_msg) {
-		http_response_code(400);
-		echo '{"err": "'.$error_msg.'"}';
-		die();
-	}
-	
     global $settings;
     $settings = load_settings();
-	
+
+	function get_cors($settings) {
+		return $settings->cors;
+	}
+
+	header("content-type: application/json");
 	header("Access-Control-Allow-Origin: ".get_cors($settings));
 	header("Access-Control-Allow-Headers: Content-Type");
 
@@ -18,6 +14,16 @@
         $c = file_get_contents("api-settings.json");
         return json_decode($c);
     }
+
+
+	function return_err($msg) {
+		global $db_;
+		delete_temp_database($db_);
+		$db_->close();
+		http_response_code(200);
+		echo '{"err": "'.$msg.'", "ise": true}';
+		die();
+	}
 
     function get_db_username($settings) {
         return $settings->username;
@@ -38,10 +44,6 @@
     function get_temp_db_name($settings) {
         return $settings->temp_db_name;
     }
-	
-	function get_cors($settings) {
-		return $settings->cors;
-	}
 
 	function get_req_body() {
 		$inputJSON = file_get_contents('php://input');
@@ -99,7 +101,7 @@
 		}
 		return $headers;
 	}
-	
+
 	function make_single_value_row($row) {
 		$value_row = array();
 		$keys = array_keys($row);
@@ -122,6 +124,14 @@
 		return array("rows" => get_rows_array($r),"headers"=>get_headers_array($r));
 	}
 
+	function use_multi_result($mr) {
+		do {
+			$result = $mr->store_result();
+			$result_object = make_result_object($result);
+			array_push($results);
+		} while ($mr->next_result());
+	}
+
 	function delete_temp_database($db) {
 		global $settings;
 		$r = $db -> query("DROP DATABASE ".get_temp_db_name($settings).";");
@@ -133,7 +143,7 @@
 				do {
 					if ($result = $dbx -> store_result()) {
 						global $res_;
-						array_push($res_, make_result_object($result));	
+						array_push($res_, make_result_object($result));
 					}
 				} while ($dbx -> next_result());
 			}
@@ -141,35 +151,33 @@
 				return_err("QUERY: ".$dbx->error);
 			}
 		}
-		
+
 		catch (Exception $e) {
 			return_err("exception");
 		}
 	}
 
-	try {
-		$body_ = get_req_body();
+	$body_ = get_req_body();
 
-		$schema = get_schema($body_);
+	$schema = get_schema($body_);
 
-		$query_ = get_query($body_);
+	$query_ = get_query($body_);
 
-		$db_ = open_db();
 
-		use_temp_database($db_);
+	global $db_;
+	$db_ = open_db();
 
-		load_schema($db_, $schema);
+	use_temp_database($db_);
 
-		$res = execute_query($db_, $query_);
+	load_schema($db_, $schema);
 
-		delete_temp_database($db_);
-		
-		$db_->close();
+	$db_->close();
 
-		echo json_encode($res_);
-	}
-	
-	catch (Exception $e) {
-		return_err("exception");
-	}
+	$xdb = open_temp_db();
+
+	$res = execute_query($xdb, $query_);
+
+	delete_temp_database($xdb);
+
+	echo json_encode($res_);
 ?>
