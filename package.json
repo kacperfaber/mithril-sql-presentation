@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "run": "npx webpack && serve www",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,6 +23,7 @@
     "@babel/plugin-transform-react-jsx": "^7.20.13",
     "@babel/preset-typescript": "^7.18.6",
     "babel-loader": "^9.1.2",
+    "serve": "^14.2.1",
     "ts-loader": "^9.4.2",
     "typescript": "^4.9.5",
     "webpack": "^5.75.0",
