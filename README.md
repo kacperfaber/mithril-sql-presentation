@@ -5,6 +5,8 @@ Introducing interactive console where we can execute real SQL queries.
 
 <br>Besides it's my first ❤ mithril project
 
+<img src="screenshots/console.JPG">
+
 ## See screenshots
 [See screenshots](#screenshots)
 
